@@ -27,4 +27,5 @@ attic/
 # Excel files
 *.xlsx
 
-
+# Mac directory file
+.DS_Store
