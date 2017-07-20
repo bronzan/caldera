@@ -34,13 +34,13 @@ for (f in 1:length(fns))
 	if (f %% 1000 == 0)
 	{
 		colnames(daymet) <- c("lon", "lat", dates)
-		write.csv(daymet, file=paste0("daymet-row-", f, ".csv", row.names=FALSE))
+		write.csv(daymet, file=paste0("daymet-row-", f, ".csv"), row.names=FALSE)
 		daymet <- data.frame()
 	}
 }
 
 colnames(daymet) <- c("lon", "lat", dates)
-write.csv(daymet, file=paste0("daymet-row-", f, ".csv", row.names=FALSE))
+write.csv(daymet, file=paste0("daymet-row-", f, ".csv"), row.names=FALSE)
 daymet <- data.frame()
 
 for (f in list.files(pattern="daymet-row"))
