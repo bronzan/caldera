@@ -31,3 +31,8 @@ daymet/*
 
 # Mac directory file
 .DS_Store
+
+# Daymet data
+daymet-row*
+daymet-data*
+
