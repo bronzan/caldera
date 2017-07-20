@@ -20,6 +20,7 @@ zcta_GIS/
 statethresholds/
 tables/
 attic/
+daymet-data/
 
 # R Data
 *.RData
