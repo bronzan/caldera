@@ -21,6 +21,7 @@ statethresholds/
 tables/
 attic/
 daymet-data/
+daymet/*
 
 # R Data
 *.RData
