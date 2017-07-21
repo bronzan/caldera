@@ -1,5 +1,5 @@
 options(stringsAsFactors = FALSE)
-setwd("/Users/jbronzan/projects/caldera")
+#setwd("/Users/jbronzan/projects/caldera")
 
 ## GET TMAX FOR 20-YEAR PERIOD
 
@@ -7,8 +7,8 @@ setwd("/Users/jbronzan/projects/caldera")
 startyears <- c(1997, 2031, 2056, 2080) # iterate here to cycle through years
 
 
-rcps <- "rcp26"
-#rcps <- c("rcp26", "rcp45", "rcp85") # iterate here to cycle through RCPs
+#rcps <- "rcp26"
+rcps <- c("rcp45", "rcp85") # iterate here to cycle through RCPs
 
 var <- "tasmax" # iterate here to cycle through variables
 
@@ -21,6 +21,9 @@ colnames(grid_city)[which(colnames(grid_city) == "grid_lat")] <- "lat"
 for (r in 1:length(rcps))
 {
 	rcp <- rcps[r]
+	rcp.start.time <- Sys.time()
+	print(paste("---- Started", rcp, "at", rcp.start.time, "----"))
+
 
 	## list directories with model results for chosen rcp
 	directories <- list.files("/Volumes/conus", pattern=rcp)
@@ -34,12 +37,14 @@ for (r in 1:length(rcps))
 
 
 	## now cycle through models
-	for (m in 1:1)
-	model.output <- data.frame()
-	## for (m in 1:length(models))
+	#	for (m in 1:1)
+	
+	for (m in 1:length(models))
 	{
+		model.output <- data.frame()
 		model <- models[m] # iterate here to cycle though models
-		print(paste("**** started model", model, "at", Sys.time(), " ****"))
+		model.start.time <- Sys.time()
+		print(paste("**** started model", model, "at", model.start.time, "****"))
 		# define directory holding CMIP5 CONUS data
 		dataDir <- paste0("/Volumes/conus/", model, "_", rcp, "_r1i1p1")
 
@@ -48,6 +53,8 @@ for (r in 1:length(rcps))
 			startyear <- startyears[fr]
 			years <- startyear:(startyear + 19)
 	#		for (y in 1:5)
+			print(paste("> started frame at", Sys.time()))
+
 			for (y in 1:length(years))  ## PRODUCTION version
 			{
 				# load data file
@@ -75,13 +82,15 @@ for (r in 1:length(rcps))
 				}
 
 			}
-			write.csv(model.output, file=paste0("/Volumes/conus/model_compiled", var, "_", model, "_", yr, ".RData"))
-
+			save(model.output, file=paste0("/Volumes/conus/model_compiled/", var, "_", model, "_", yr, ".RData"))
+			print(paste("> finished frame at", Sys.time()))
 		}
-			
+		print(paste("**** finished model", model, "at", Sys.time(), "****"))
+		print(paste0("       (elapsed time ", Sys.time() - model.start.time, ")"))
 	}
 
-	
+	print(paste("---- Finished", rcp, "at", Sys.time(), "----"))
+	print(paste0("       (elapsed time ", Sys.time() - rcp.start.time, ")"))
 }
 
 
