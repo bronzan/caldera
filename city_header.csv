@@ -1,4 +1,4 @@
-"city","state","grid_lon","grid_lat"
+"city","state","lon","lat"
 "Portsmouth","NH",-71.0625,43.0625
 "Holtsville","NY",-72.6875,40.9375
 "Agawam","MA",-72.5625,42.0625
