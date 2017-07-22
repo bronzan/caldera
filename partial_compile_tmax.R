@@ -39,7 +39,7 @@ for (r in 1:1)
 	## now cycle through models
 	#	for (m in 1:1)
 	
-	for (m in 2:length(models))
+	for (m in 1:1)
 	{
 		model.output <- data.frame()
 		model <- models[m] # iterate here to cycle though models

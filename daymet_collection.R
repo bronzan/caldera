@@ -21,6 +21,7 @@ fns <- list.files("daymet-data")
 for (f in 1:length(fns))
 
 {
+	fn <- fns[f]
 	if (f %% 100 == 0) {print(paste(f, "at", Sys.time()))}  #keep track of speed
 
 	## Get lat/lon out of filename
@@ -28,28 +29,29 @@ for (f in 1:length(fns))
 	lat <- substr(fn, 1, x-1)
 	lon <- substr(fn, x+1, nchar(fn))
 
+	dat <- read.csv(file=paste0("daymet-data/", fn), skip=7)
 	newrow <- c(lon, lat, dat[which(dat$year == 1997)[1]:which(dat$year == 2016)[365],7])
 	daymet <- rbind(daymet, newrow)
 
 	if (f %% 1000 == 0)
 	{
 		colnames(daymet) <- c("lon", "lat", dates)
-		write.csv(daymet, file=paste0("daymet-row-", f, ".csv"), row.names=FALSE)
+		write.csv(daymet, file=paste0("daymet-frames/daymet-row-", f, ".csv"), row.names=FALSE)
 		daymet <- data.frame()
 	}
 }
 
 colnames(daymet) <- c("lon", "lat", dates)
-write.csv(daymet, file=paste0("daymet-row-", f, ".csv"), row.names=FALSE)
+write.csv(daymet, file=paste0("daymet-frames/daymet-row-", f, ".csv"), row.names=FALSE)
 daymet <- data.frame()
 
-for (f in list.files(pattern="daymet-row"))
+for (f in list.files("daymet-frames", pattern="daymet-row"))
 {
 	chunk <- read.csv(f)
 	daymet <- rbind(daymet, chunk)
 }
 
-write.csv(daymet, file="daymet-data-all.csv", row.names=FALSE)
+write.csv(daymet, file="daymet-frames/daymet-data-all.csv", row.names=FALSE)
 
 
 
