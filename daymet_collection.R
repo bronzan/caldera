@@ -47,7 +47,7 @@ daymet <- data.frame()
 
 for (f in list.files("daymet-frames", pattern="daymet-row"))
 {
-	chunk <- read.csv(f)
+	chunk <- read.csv(paste0("daymet-frames/", f))
 	daymet <- rbind(daymet, chunk)
 }
 
