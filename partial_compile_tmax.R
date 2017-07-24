@@ -8,7 +8,7 @@ startyears <- c(1997, 2031, 2056, 2080) # iterate here to cycle through years
 
 
 #rcps <- "rcp26"
-rcps <- c("rcp45", "rcp85") # iterate here to cycle through RCPs
+rcps <- c("rcp26", "rcp45", "rcp85") # iterate here to cycle through RCPs
 
 var <- "tasmax" # iterate here to cycle through variables
 
@@ -39,7 +39,7 @@ for (r in 1:1)
 	## now cycle through models
 	#	for (m in 1:1)
 	
-	for (m in 1:1)
+	for (m in 1:length(models))
 	{
 		model.output <- data.frame()
 		model <- models[m] # iterate here to cycle though models
